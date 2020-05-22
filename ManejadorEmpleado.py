@@ -4,6 +4,7 @@ from Empleado import Empleado
 from empleadoPlanta import Eplanta
 from empleadoContratado import Econtratado
 from empleadoExterno import Eexternos
+from datetime import datetime
 class ManejaEmpleados:
     __arreEmp=None
     __indice=0
@@ -33,16 +34,6 @@ class ManejaEmpleados:
             self.__arreEmp[self.__indice]=UnEmpleado
             self.__indice=self.__indice+1
         archi.close()    
-    def mostrar(self):
-        for i in range(self.__indice):
-            if(isinstance(self.__arreEmp[i],Eplanta)==True):
-                print(self.__arreEmp[i])
-            else:
-                if(isinstance(self.__arreEmp[i],Econtratado)==True):
-                  print(self.__arreEmp[i])
-                else:
-                    if(isinstance(self.__arreEmp[i],Eexternos)==True):
-                        print(self.__arreEmp[i])
     def buscar(self,dni):
         i=0
         band=0
@@ -55,24 +46,23 @@ class ManejaEmpleados:
             else:
                     i=i+1
         if(band!=0):
-            return i+1
+            return self.__arreEmp[i]
         else:
-            return 0
-
-    def agregarhora(self,indice,hora):
-        self.__arreEmp[indice].sethora(hora)                        
+            return 0                       
     def buscaobra(self,obra):
         i=0
         band=0
         while(i<len(self.__arreEmp))and(band==0):
             if(isinstance(self.__arreEmp[i],Eexternos)==True):
                 if(self.__arreEmp[i].geTarea().lower()==obra.lower()):
-                    if(int(self.__arreEmp[i].getCostoObra())!=0):
-                        print('El costo de la obra es: {}'.format(self.__arreEmp[i].getCostoObra())) 
-                
+                    fechafincontrato=self.__arreEmp[i].getFinaliza()
+                    fechafinContrato=datetime.strptime(fechafincontrato,'%d/%m/%y')
+                    fechaactual=datetime.today()
+                    if(fechaactual<fechafinContrato):
+                        print('Costo de la Obra {}'.format(self.__arreEmp[i].getCostoObra()))
                     else:
-                        print('Obra finalizada')
-                    band=1     
+                        print('Obra Ya Finalizada')    
+                    band=1
                 else:
                  i=i+1
             else:
@@ -81,24 +71,11 @@ class ManejaEmpleados:
             print('No se encontro la obra')
     def ayuda(self):
         for i in range(self.__indice):
-            if(isinstance(self.__arreEmp[i],Eplanta)==True):
-                if(self.__arreEmp[i].Sueldo()<25000):
-                    print(self.__arreEmp[i].DatosAyuda())
-            else:
-                if(isinstance(self.__arreEmp[i],Econtratado)==True):
-                    if(self.__arreEmp[i].SueldoC()<25000):
-                        print(self.__arreEmp[i].DatosAyuda())
-                else:
-                    if(isinstance(self.__arreEmp[i],Eexternos)==True):
-                        if(self.__arreEmp[i].SueldoE()<25000):
-                            print(self.__arreEmp[i].DatosAyuda())
+         if(self.__arreEmp[i].Sueldo()<25000):
+             band=False
+             print(self.__arreEmp[i].MostrarDatos(band))
     def inciso4(self):
           for i in range(self.__indice):
-            if(isinstance(self.__arreEmp[i],Eplanta)==True):
-                print('Nombre: {}\n'.format(self.__arreEmp[i].getNombre())+'Sueldo {}\n'.format(self.__arreEmp[i].Sueldo())+'Telefono {} \n'.format(self.__arreEmp[i].getTelefono()))
-            else:
-                if(isinstance(self.__arreEmp[i],Econtratado)==True):   
-                     print('Nombre: {}\n'.format(self.__arreEmp[i].getNombre())+'Sueldo {}\n'.format(self.__arreEmp[i].SueldoC())+'Telefono {} \n'.format(self.__arreEmp[i].getTelefono()))
-                else:
-                    if(isinstance(self.__arreEmp[i],Eexternos)==True):
-                         print('Nombre: {}\n'.format(self.__arreEmp[i].getNombre())+'Sueldo {}\n'.format(self.__arreEmp[i].SueldoE())+'Telefono {} \n'.format(self.__arreEmp[i].getTelefono()))
+              band=True
+              print(self.__arreEmp[i].MostrarDatos(band))
+          

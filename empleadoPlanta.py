@@ -14,6 +14,9 @@ class Eplanta(Empleado):
         return self.__SueldoBasico
     def getAntiguedad(self):
         return self.__Antiguedad
-    def __str__(self):
-        s='Nombre {}\n'.format(self.getNombre())+'Dni {}\n'.format(self.getDni())+'Direccion {}\n'.format(self.getDireccion())+'Sueldo Basico {}\n'.format(self.__SueldoBasico)+'Antiguedad {}\n'.format(self.__Antiguedad)
-        return s
+    def MostrarDatos(self,band):
+        if(band==True):
+            super().MostrarDatos(band)
+            print('Sueldo: {}'.format(self.Sueldo()))
+        else:
+            super().MostrarDatos(band)

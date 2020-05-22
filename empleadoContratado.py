@@ -20,12 +20,14 @@ class Econtratado(Empleado):
         return self.__cantHoras
     def sethora(self,hora):
         self.__cantHoras=self.__cantHoras+hora
-    def SueldoC(self):
+    def Sueldo(self):
         sueldo=self.__cantHoras*self.getValorxhora()
         return sueldo
-    def __str__(self):
-        s='Nombre {}\n'.format(self.getNombre())+'Dni {}\n'.format(self.getDni())+'Direccion {}\n'.format(self.getDireccion())+'Fecha inicio {}\n'.format(self.__Finicio)+'Fin de contrato {}\n'.format(self.__Fincontrato)+'Horas {}\n'.format(self.__cantHoras)+'Valor de Hora {}'.format(self.getValorxhora())
-        
-        return s
+    def MostrarDatos(self,band):
+        if(band==True):
+            super().MostrarDatos(band)
+            print('Sueldo: {}'.format(self.Sueldo()))
+        else:
+            super().MostrarDatos(band)
     
     

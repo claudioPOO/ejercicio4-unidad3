@@ -1,5 +1,6 @@
 import  os
-import datetime
+from datetime import date
+from empleadoContratado import Econtratado
 class Menu :
     __switcher = None
     def  __init__ ( self ):
@@ -18,16 +19,17 @@ class Menu :
         print ( 'Salir' )
     def  opcion1 (self, ME):
         dni=int(input('DNI para registrar horas '))
+        os.system('cls')
         d=ME.buscar(dni)
-        if(d!=0):
+        if(isinstance(d,Econtratado)==True):
             horas=int(input('Horas Trabajadas '))
-            ME.agregarhora(d-1,horas)
-            ME.mostrar()
+            d.sethora(horas)
+            band=True
         else:
             print('DNI NO ENCONTRADO O NO PERTENECE AL SECTOR CONTRATADOS')
     def  opcion2 ( self,ME ):
         obra=input('Obra ')
-        ME.buscarobra(obra)
+        ME.buscaobra(obra)
     def opcion3(self,ME):
         print('Empleados que necesitan ayuda')
         ME.ayuda()

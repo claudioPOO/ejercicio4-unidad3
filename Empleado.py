@@ -16,6 +16,11 @@ class Empleado:
         return self.__Direccion
     def getTelefono(self):
         return self.__Telefono
-    def DatosAyuda(self):
-        s='Nombre {} \n'.format(self.__Nombre)+'Direccion {}\n'.format(self.__Direccion)+'Dni {}\n'.format(self.__Dni)
-        return s
+    def MostrarDatos(self,band):
+        if(band==True):
+            print('Nombre: {}'.format(self.__Nombre))
+            print('Telefono {} '.format(self.__Telefono))
+        else:
+            print('Nombre: {}'.format(self.__Nombre))
+            print('Dni {}'.format(self.__Dni))
+            print('Direccion {} '.format(self.__Direccion))
